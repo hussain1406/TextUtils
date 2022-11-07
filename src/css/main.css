@@ -1,0 +1,30 @@
+#text-info {
+  display: flex;
+  justify-content: space-between;
+}
+
+#string-info {
+  display: flex;
+  flex-direction: column;
+}
+
+#text-preview {
+  background: rgb(226, 226, 226);
+  padding: 4px 10px 90px 15px;
+  border-radius: 10px;
+}
+
+.btn {
+  border-radius: 2rem;
+}
+
+form > input + button.btn.btn-primary {
+  border-bottom-left-radius: 0;
+  border-top-left-radius: 0;
+  border-top-right-radius: 0.275rem;
+  padding: 0 20px 0 14px;
+}
+form[role="search"] > input {
+  border-bottom-left-radius: 2rem !important;
+  padding: 10px 14px 10px 25px;
+}
