@@ -4,12 +4,12 @@ import "../css/main.css";
 export default function TextForm(props) {
   const [text, setText] = useState("");
   const handleUpClick = () => {
-    let newText = text.toUpperCase();
+    const newText = text.toUpperCase();
     setText(newText);
     props.showAlert("Text converted to Uppercase Successfully!", "success");
   };
   const handleLowClick = () => {
-    let newText = text.toLowerCase();
+    const newText = text.toLowerCase();
     setText(newText);
     props.showAlert("Text converted to Lowercase Successfully!", "success");
   };
@@ -17,13 +17,13 @@ export default function TextForm(props) {
     setText(event.target.value);
   };
   const handleCopy = () => {
-    let text = document.getElementById("myBox");
+    const text = document.getElementById("myBox");
     text.select();
     navigator.clipboard.writeText(text.value);
     props.showAlert("Copied to Clipboard!", "success");
   };
   const removeWhiteSpaces = () => {
-    let newText = text.split(/[ ]+/);
+    const newText = text.split(/[ ]+/);
     setText(newText.join(" "));
     props.showAlert("Whitespaces removed Successfully!", "success");
   };
@@ -31,8 +31,8 @@ export default function TextForm(props) {
     setText("");
     props.showAlert("Text Cleared!", "success");
   };
-  let readingMinutes = Math.floor(0.006666667 * text.split(" ").length);
-  let readingSec = Math.floor(0.4 * text.split(" ").length) % 60;
+  const readingMinutes = Math.floor(0.006666667 * text.split(" ").length);
+  const readingSec = Math.floor(0.4 * text.split(" ").length) % 60;
 
   return (
     <>
@@ -57,7 +57,7 @@ export default function TextForm(props) {
               backgroundColor: props.mode === "light" ? "white" : "#737373",
               color: props.mode === "light" ? "black" : "white",
             }}
-          ></textarea>
+          />
         </div>
         <button
           className={`btn btn${
