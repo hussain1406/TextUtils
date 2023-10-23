@@ -7,7 +7,6 @@
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
-    "gh-pages": "^4.0.0",
     "localforage": "^1.10.0",
     "match-sorter": "^6.3.1",
     "react": "^18.2.0",
@@ -19,8 +18,6 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -b master -d build -r https://github.com/hussain1406/TextUtils",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
