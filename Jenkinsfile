@@ -1,8 +1,10 @@
 #!/usr/bin/env groovy
 pipeline {
-    stage("Build"){
-        steps {
-
+    stages {
+        stage("Build"){
+            steps {
+                npm run build
+            }
         }
     }
 
