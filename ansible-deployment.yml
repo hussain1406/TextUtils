@@ -1,0 +1,50 @@
+---
+- hosts: docker
+  remote_user: docker
+  gather_facts: false
+  vars:
+    image_name: react_app
+    container_name: web_app
+    github_repo: https://github.com/hussain1406/TextUtils.git
+    repo_dest: /home/docker/project/files
+  tasks:
+    - name: Copy files to Docker Server
+      git:
+        repo: "{{ github_repo }}"
+        dest: "{{ repo_dest }}"
+
+    - name: Deleting Containers
+      docker_container:
+        name: "{{ container_name }}"
+        image: "{{ image_name }}"
+        state: absent
+
+    - name: Deleting Old Image
+      docker_image:
+        name: "{{ image_name }}"
+        state: absent
+
+    - name: Building Docker Image
+      docker_image:
+        name: "{{ image_name }}"
+        source: build
+        build:
+          path: "{{ repo_dest }}"
+          pull: no
+        state: present
+      register: docker_build_result
+    - name: Print Docker Build Result
+      debug:
+        var: docker_build_result
+
+    - name: Running Container
+      docker_container:
+        name: "{{ container_name }}"
+        image: "{{ image_name }}"
+        ports:
+          - "8080:80"
+        state: started
+    - name: Deleting the build files
+      file:
+        path: "{{ repo_dest }}"
+        state: absent
