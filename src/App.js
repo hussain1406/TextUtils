@@ -32,7 +32,7 @@ function App() {
   };
   return (
     <Router>
-      <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode} />
+      <Navbar title="TextUtils by Hussain" mode={mode} toggleMode={toggleMode} />
       <div className="container my-3">
         <Alert alert={alert} />
         <Switch>
