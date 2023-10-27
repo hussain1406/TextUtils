@@ -6,12 +6,12 @@
     image_name: react_app
     container_name: web_app
   tasks:
-    - name: Creating Temporary image
-      docker_image:
-        name: "{{ image_name }}"
-        repository: "temp"
-        push: false
-        source: local
+    # - name: Creating Temporary image
+    #   docker_image:
+    #     name: "{{ image_name }}"
+    #     repository: "temp"
+    #     push: false
+    #     source: local
 
     - name: Deleting Containers
       docker_container:
