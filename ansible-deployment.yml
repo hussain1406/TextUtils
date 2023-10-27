@@ -8,16 +8,26 @@
     github_repo: https://github.com/hussain1406/TextUtils.git
     repo_dest: /home/docker/project/files
   tasks:
-    - name: Copy files to Docker Server
-      git:
-        repo: "{{ github_repo }}"
-        dest: "{{ repo_dest }}"
+    - name: Creating Temporary image
+      docker_image:
+        name: "{{ image_name }}"
+        repository: "temp"
+        push: false
+        source: local
 
     - name: Deleting Containers
       docker_container:
         name: "{{ container_name }}"
         image: "{{ image_name }}"
         state: absent
+
+    - name: Creating Temporary Container
+      docker_container:
+        name: "temp"
+        image: "temp"
+        ports:
+          - "8080:80"
+        state: started
 
     - name: Deleting Old Image
       docker_image:
@@ -37,6 +47,12 @@
       debug:
         var: docker_build_result
 
+    - name: Deleting Temporary Container
+      docker_container: 
+        name: "temp"
+        image: "temp"
+        state: absent
+      
     - name: Running Container
       docker_container:
         name: "{{ container_name }}"
@@ -44,10 +60,17 @@
         ports:
           - "8080:80"
         state: started
+
+    - name: Deleting Temporary Image
+      docker_image:
+        name: "temp"
+        state: absent
+    
     - name: Deleting the build files
       file:
         path: "{{ repo_dest }}"
         state: absent
+
     - name: Deleting Dangling Images
       community.docker.docker_prune:
         images: yes
