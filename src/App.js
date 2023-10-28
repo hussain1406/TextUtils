@@ -45,8 +45,8 @@ function App() {
             />
           </Route>
           <Route exact path="/about">
-            {/* <About /> */}
-            <About mode={mode} />
+            <About />
+            {/* <About mode={mode} /> */}
           </Route>
         </Switch>
       </div>
