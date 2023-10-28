@@ -7,33 +7,8 @@
     container_name: web_app
     repo_dest: /home/docker/project/files
     current_tag: "{{ '1.' + version }}"
-    previous_tag: "{{ '1.' + str(int(version) - 1) }}"
+    previous_tag: "{{ '1.' + previous }}"
   tasks:
-    - name: Creating Temporary image
-      docker_image:
-        name: "{{ image_name + previous_tag }}"
-        repository: "temp"
-        push: false
-        source: local
-
-    - name: Deleting Containers
-      docker_container:
-        name: "{{ container_name }}"
-        image: "{{ image_name + previous_tag }}"
-        state: absent
-
-    - name: Creating Temporary Container
-      docker_container:
-        name: "temp"
-        image: "temp"
-        ports:
-          - "8080:80"
-        state: present
-
-    - name: Deleting Old Image
-      docker_image:
-        name: "{{ image_name }}"
-        state: absent
 
     - name: Building Docker Image
       docker_image:
@@ -49,26 +24,25 @@
       debug:
         var: docker_build_result
 
-    - name: Deleting Temporary Container
-      docker_container: 
-        name: "temp"
-        image: "temp"
+    - name: Deleting Containers
+      docker_container:
+        name: "{{ container_name }}"
+        image: "{{ image_name + previous_tag }}"
         state: absent
-      
+
     - name: Running Container
       docker_container:
         name: "{{ container_name }}"
         image: "{{ image_name + current_tag }}"
         ports:
-          - "8080:80"
+          - "80:80"
         state: started
 
-    - name: Deleting Temporary Image
+    - name: Deleting Old Image
       docker_image:
-        name: "temp"
-        image: "{{ image_name + previous_tag }}"
+        name: "{{ image_name + ':' + previous_tag }}"
         state: absent
-    
+
     - name: Deleting the build files
       file:
         path: "{{ repo_dest }}"
