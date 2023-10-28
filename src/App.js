@@ -40,11 +40,12 @@ function App() {
           <Route exact path="/">
             <TextForm
               heading="Enter the text to be analyzed:"
-              mode={mode}
+              // mode={mode}
               showAlert={showAlert}
             />
           </Route>
           <Route exact path="/about">
+            {/* <About /> */}
             <About mode={mode} />
           </Route>
         </Switch>
