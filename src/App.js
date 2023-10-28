@@ -33,7 +33,7 @@ function App() {
   return (
     <Router>
       {/* <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode} /> */}
-      <Navbar title="TextUtils" mode={mode} />
+      <Navbar title="TextUtils" />
       <div className="container my-3">
         <Alert alert={alert} />
         <Switch>
