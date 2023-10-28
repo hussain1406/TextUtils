@@ -6,7 +6,7 @@
     image_name: react_app
     container_name: web_app
     repo_dest: /home/docker/project/files
-    current _tag: "1.{{ version }}"
+    current_tag: "1.{{ version }}"
     previous_tag: "1.{{ int(version) - 1 }}"
   tasks:
     - name: Creating Temporary image
