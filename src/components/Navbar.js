@@ -36,7 +36,7 @@ export default function Navbar(props) {
                 </Link>
               </li>
             </ul>
-            <div className="form-check form-switch">
+            {/* <div className="form-check form-switch">
               <label
                 className={`form-check-label text-${
                   props.mode === "dark" ? "light" : "dark"
@@ -52,7 +52,7 @@ export default function Navbar(props) {
                 onClick={props.toggleMode}
                 id="flexSwitchCheckDefault"
               />
-            </div>
+            </div> */}
 
             <form className="d-flex" role="search">
               <input
