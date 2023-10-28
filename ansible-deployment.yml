@@ -6,11 +6,12 @@
     image_name: react_app
     container_name: web_app
     repo_dest: /home/docker/project/files
-    image_tag: "{{ version }}"
+    current _tag: "1.{{ version }}"
+    previous_tag: "1.{{ int(version) - 1 }}"
   tasks:
     - name: Creating Temporary image
       docker_image:
-        name: "{{ image_name + ':' + image_tag }}"
+        name: "{{ image_name + previous_tag }}"
         repository: "temp"
         push: false
         source: local
@@ -18,7 +19,7 @@
     - name: Deleting Containers
       docker_container:
         name: "{{ container_name }}"
-        image: "{{image_name + ':' + image_tag}}"
+        image: "{{ image_name + previous_tag }}"
         state: absent
 
     - name: Creating Temporary Container
@@ -37,7 +38,7 @@
     - name: Building Docker Image
       docker_image:
         name: "{{ image_name }}"
-        tag: "{{ image_tag }}"
+        tag: "{{ current_tag }}"
         source: build
         build:
           path: "{{ repo_dest }}"
@@ -57,7 +58,7 @@
     - name: Running Container
       docker_container:
         name: "{{ container_name }}"
-        image: "{{image_name + ':' + image_tag}}"
+        image: "{{ image_name + current_tag }}"
         ports:
           - "8080:80"
         state: started
@@ -65,6 +66,7 @@
     - name: Deleting Temporary Image
       docker_image:
         name: "temp"
+        image: "{{ image_name + previous_tag }}"
         state: absent
     
     - name: Deleting the build files
