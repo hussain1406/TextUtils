@@ -6,7 +6,7 @@
     image_name: react_app
     container_name: web_app
     repo_dest: /home/docker/project/files
-    current_tag: "{{ ':1.' + version }}"
+    current_tag: "{{ '1.' + version }}"
     previous_tag: "{{ ':1.' + previous }}"
   tasks:
 
@@ -29,14 +29,14 @@
     - name: Running Container
       docker_container:
         name: "{{ container_name }}"
-        image: "{{ image_name + current_tag }}"
+        image: "{{ image_name + ':' + current_tag }}"
         ports:
           - "80:80"
         state: started
 
     - name: Deleting Old Image
       docker_image:
-        name: "{{ image_name + ':' + previous_tag }}"
+        name: "{{ image_name + previous_tag }}"
         state: absent
 
     - name: Deleting the build files
