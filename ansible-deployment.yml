@@ -6,8 +6,8 @@
     image_name: react_app
     container_name: web_app
     repo_dest: /home/docker/project/files
-    current_tag: "{{ '1.' + version }}"
-    previous_tag: "{{ '1.' + previous }}"
+    current_tag: "{{ ':1.' + version }}"
+    previous_tag: "{{ ':1.' + previous }}"
   tasks:
 
     - name: Building Docker Image
@@ -19,10 +19,6 @@
           path: "{{ repo_dest }}"
           pull: no
         state: present
-      register: docker_build_result
-    - name: Print Docker Build Result
-      debug:
-        var: docker_build_result
 
     - name: Deleting Containers
       docker_container:
