@@ -36,6 +36,7 @@ export default function Navbar(props) {
                 </Link>
               </li>
             </ul>
+            {/* Need to implement the Dark Mode */}
             {/* <div className="form-check form-switch">
               <label
                 className={`form-check-label text-${
